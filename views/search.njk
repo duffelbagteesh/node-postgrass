@@ -1,0 +1,44 @@
+{% extends "layouts/default.njk" %}
+
+{% block content %}
+  
+
+  <section class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <h1>{{ title }}</h1>
+        <form action="/" method="get">
+        <div class="form-group">
+          <label for="search">Search</label>
+          <input type="text" class="form-control" id="q" name="q" placeholder="Search for a song" value="{{query}}" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+          <hr>
+
+          {% if rows.length > 0 %}
+            <h2>Results</h2>
+              {% for track in rows %}
+              <div class="card mb-3">
+                <div class="card-body">
+                <h3>{{ track.name }}</h3>
+                <p><strong>Album:</strong> {{ track.album_title }}</p>
+                <p><strong>Artist:</strong> {{ track.artist_name }}</p>
+                <a href="https://www.youtube.com/results?search_query={{ track.name | urlencode }}" class="btn btn-primary" target="_blank">View</a>
+              </div>
+              </div>
+              {% endfor %}
+          {% else %}
+            <p>No results found</p>
+          {% endif %}
+        </div>
+    </div>
+  </section>
+
+  
+{% endblock %}
